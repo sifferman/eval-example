@@ -1,0 +1,21 @@
+name: Test
+on: [push]
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download OSS
+        run: |
+          curl -JOL https://github.com/YosysHQ/oss-cad-suite-build/releases/download/2023-10-09/oss-cad-suite-linux-x64-20231009.tgz
+          tar -xzvf oss-cad-suite-linux-x64-20231009.tgz -C ./
+          rm -rf oss-cad-suite-linux-x64-20231009.tgz
+          echo "$GITHUB_WORKSPACE/oss-cad-suite/bin" >> $GITHUB_PATH
+      - name: Download Synling
+        run: |
+          curl -JOL https://github.com/chipsalliance/synlig/releases/download/2023-10-05-8935e3a/synlig-8935e3a-2023-10-05.tar.gz
+          tar -xzvf synlig-8935e3a-2023-10-05.tar.gz -C ./
+          mv out/release ./synlig
+          rm -r out
+          echo "$GITHUB_WORKSPACE/synlig/bin" >> $GITHUB_PATH
+      - run: make all
