@@ -12,7 +12,7 @@ if { $argc != 1 } {
   set test_file [lindex $argv 0]
 }
 
-read_systemverilog -noinfo -nonote $test_file
+read_systemverilog -noinfo -nonote -I. $test_file
 
 synth -top top
 

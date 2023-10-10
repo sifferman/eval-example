@@ -20,6 +20,7 @@ define make_run_target
 run___TEST-$1___TOOL-$2:
 	test=$1 tool=$2 && \
 	mkdir -p build/$(dir ${test}) && \
+	cp assert.svh build/$(dir ${test}) && \
 	cd build/$(dir ${test}) && \
 	yosys -l $(notdir $(1:.sv=__${tool}.log)) -p 'tcl $(CURDIR)/${tool}.tcl $(CURDIR)/${test}' && \
 	grep -q ${regex} $(notdir $(1:.sv=__${tool}.log))

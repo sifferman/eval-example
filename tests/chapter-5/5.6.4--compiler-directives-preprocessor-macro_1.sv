@@ -17,11 +17,7 @@
 `define VAR_1 2
 `define VAR_2 5
 
-`ifndef SYNTHESIS
-`define ASSERT(BOOL) $display(":assert:(%b)", (BOOL))
-`else
-`define ASSERT(BOOL) ERROR |= !(BOOL)
-`endif
+`include "assert.svh"
 
 module top(output reg ERROR);
 int a = `VAR_1 + `VAR_2;

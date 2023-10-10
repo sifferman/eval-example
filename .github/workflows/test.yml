@@ -14,8 +14,8 @@ jobs:
       - name: Download Synling
         run: |
           curl -JOL https://github.com/chipsalliance/synlig/releases/download/2023-10-05-8935e3a/synlig-8935e3a-2023-10-05.tar.gz
-          tar -xzvf synlig-8935e3a-2023-10-05.tar.gz -C ./
-          mv out/release ./synlig
-          rm -r out
+          mkdir -p synlig
+          tar -xzvf synlig-8935e3a-2023-10-05.tar.gz --strip-components=2 -C synlig
+          rm -rf synlig-8935e3a-2023-10-05.tar.gz
           echo "$GITHUB_WORKSPACE/synlig/bin" >> $GITHUB_PATH
       - run: make all
